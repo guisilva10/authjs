@@ -71,7 +71,7 @@ A autenticação é gerenciada com **NextAuth v5 (beta)**, utilizando credential
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/seu-usuario/seu-projeto.git
+git clone git@github.com:guisilva10/authjs.git
 
 # Instalar dependências
 npm install
