@@ -1,34 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 Projeto Next.js 15 — Fullstack Starter com Auth, Prisma & Supabase
 
-## Getting Started
+Este projeto é um boilerplate moderno construído com **Next.js 15** e o novo **App Router**, utilizando **TailwindCSS v4**, **Shadcn UI**, **TypeScript** e **NextAuth.js v5 (beta)** para autenticação. A persistência de dados é feita com **Prisma**, conectado a um banco **PostgreSQL** gerenciado via **Supabase**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ✨ Tecnologias Utilizadas
+
+- **Next.js 15 (App Router)**
+- **TypeScript**
+- **Tailwind CSS v4**
+- **Shadcn UI**
+- **NextAuth.js v5 (beta)**
+- **Prisma ORM**
+- **PostgreSQL + Supabase**
+
+---
+
+## 📦 Estrutura do Projeto
+
+```
+.
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── ...
+├── components/
+├── lib/
+│   └── get-url.ts            # Utilitário para obter a base URL dinamicamente
+├── middleware.ts             # Middleware para proteger rotas e sessões
+├── services/
+│   ├── auth/
+│   │   └── index.ts          # Lógica de autenticação customizada
+│   └── database/
+│       └── form.ts           # Serviços relacionados ao formulário e banco
+├── prisma/
+│   └── schema.prisma
+├── api/
+│   └── auth/
+│       └── [...next-auth]/
+│           └── route.ts      # Handler principal do NextAuth v5 (beta)
+└── ...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔐 Autenticação com NextAuth.js v5
 
-## Learn More
+A autenticação é gerenciada com **NextAuth v5 (beta)**, utilizando credentials e tokens JWT. Integração com Prisma para persistência das sessões e usuários.
 
-To learn more about Next.js, take a look at the following resources:
+### 🔧 Setup de Arquivos Importantes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **`/api/auth/[...next-auth]/route.ts`**  
+  Handler principal da autenticação via NextAuth. Responsável por configurar os providers, callbacks, e adaptar a sessão com Prisma.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **`/lib/get-url.ts`**  
+  Função utilitária que retorna a URL base da aplicação, usada em ambientes diferentes (dev, prod, etc).
 
-## Deploy on Vercel
+- **`middleware.ts`**  
+  Middleware para proteger rotas com autenticação baseada em token. Pode redirecionar usuários não logados.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **`/services/auth/index.ts`**  
+  Central de lógica customizada de autenticação. Pode conter funções como login programático, logout, validação de sessão, etc.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **`/services/database/prisma.ts`**  
+  Criação da instancia do prisma para utilizar na aplicação.
+
+---
+
+## 📥 Instalação e Uso
+
+```bash
+# Clonar o repositório
+git clone https://github.com/seu-usuario/seu-projeto.git
+
+# Instalar dependências
+npm install
+
+# Rodar em modo de desenvolvimento
+npm dev
+```
+
+---
+
+## ⚙️ Configuração do .env
+
+```env
+DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<database>
+NEXT_AUTH_SECRET= auth secret key
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+SESSION_COOKIE_NAME="token de autenticação"
+GOOGLE_CLIENT_ID=id_do_google_client
+GOOGLE_CLIENT_SECRET=secret_do_google
+```
